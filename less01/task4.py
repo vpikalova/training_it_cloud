@@ -21,7 +21,7 @@ class Person(object):
 		return str(self)	
 
 def main():
-	petroff = Person("Petrov", "Petro", "lol", "1952-01-02")
+	petroff = Person("Petrov", "Petro", "1952-01-02", "lol")
 	print petroff.surname 
 	print petroff.first_name
 	print petroff.nickname 
