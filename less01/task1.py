@@ -1,12 +1,7 @@
 def f(s):
 	ans = 0
 	s = s.lower()
-	s = s.replace(",", "")
-	s = s.replace(".", "")
-	s = s.replace(":", "")
-	s = s.replace(";", "")
-	s = s.replace("!", "")
-	s = s.replace("?", "")
+	s = [i.rstrip(',.:;!?') for i in s.split()]
 	for i in s.split():
 		if i == i[::-1]:
 			ans += 1
