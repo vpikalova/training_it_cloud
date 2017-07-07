@@ -1,5 +1,8 @@
+.btn .btn-default .navbar-btn .sing-in{
+    float: right;
+}
 .page-header {
-    background-color: #f5ff80;
+    background-color: #ff9400;
     margin-top: 0;
     padding: 20px 20px 20px 40px;
 }

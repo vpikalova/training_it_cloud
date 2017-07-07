@@ -22,7 +22,7 @@ class Question(models.Model):
 
 
 class Choice(models.Model):
-    question = models.ForeignKey(Question)
+    question = models.ForeignKey('polls.Question')
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
 

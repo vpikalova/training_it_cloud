@@ -1,0 +1,25 @@
+{% extends 'header.html' %}
+{% block content %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href={% static "css/courses.css" %}>
+    <h1 class="company">{{ course.name }}</h1>
+    <text class="description">{{ course.description }}</text>
+    <h2>Занятия курса:</h2>
+    <hr>
+    <table width="120%">
+        <tr>
+            <th>№</th>
+            <th>Название</th>
+            <th>Описание</th>
+        </tr>
+        {% for lesson in lessons %}
+            <div class="course">
+                <tr>
+                    <td><h6>{{ forloop.counter }}</h6></td>
+                    <td><h5>{{ lesson.subject }}</h5></td>
+                    <td><h6>{{ lesson.description }}</h6></td>
+                </tr>
+            </div>
+        {% endfor %}
+    </table>
+{% endblock %}

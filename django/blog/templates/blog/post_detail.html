@@ -1,15 +1,15 @@
 {% extends 'blog/base.html' %}
 
-{% block content %}
+{% block content_post %}
     <div class="post">
         <h1>{{ post.title }}
             {% if post.author.pk == user.pk or user.is_superuser%}
-                <a class="btn btn-default" href="{% url 'post_remove' pk=post.pk %}"><span
+                <a class="btn btn-default" href="{% url 'posts:post_remove' pk=post.pk %}"><span
                         class="glyphicon glyphicon-remove"></span></a>
-                <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span
+                <a class="btn btn-default" href="{% url 'posts:post_edit' pk=post.pk %}"><span
                         class="glyphicon glyphicon-pencil"></span></a>
                 {% if not post.published_date %}
-                    <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
+                    <a class="btn btn-default" href="{% url 'posts:post_publish' pk=post.pk %}">Publish</a>
                 {% endif %}
             {% endif %}
         </h1>
@@ -21,7 +21,7 @@
         {% endif %}
     </div>
     <hr>
-    <h1>Comments:<a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a></h1>
+    <h1>Comments:<a class="btn btn-default" href="{% url 'posts:add_comment_to_post' pk=post.pk %}">Add comment</a></h1>
     <div>
         {% for comment in post.comments.all %}
             {% if user.is_authenticated or comment.approved_comment %}
@@ -29,9 +29,9 @@
                     <div class="date">
                         {{ comment.created_date }}
                         {% if not comment.approved_comment %}
-                            <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}"><span
+                            <a class="btn btn-default" href="{% url 'post:comment_remove' pk=comment.pk %}"><span
                                     class="glyphicon glyphicon-remove"></span></a>
-                            <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}"><span
+                            <a class="btn btn-default" href="{% url 'posts:comment_approve' pk=comment.pk %}"><span
                                     class="glyphicon glyphicon-ok"></span></a>
                         {% endif %}
                     </div>

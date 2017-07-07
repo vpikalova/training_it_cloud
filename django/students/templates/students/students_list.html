@@ -1,0 +1,11 @@
+{% extends 'header.html' %}
+{% block content %}
+    {% load staticfiles %}
+    {% for student in students %}
+        <div class="course">
+            <tr>
+                <td><h6>{{ student.name }}  {{ student.surname }}</h6></td>
+            </tr>
+        </div>
+    {% endfor %}
+{% endblock %}

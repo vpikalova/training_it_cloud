@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-
-from django.contrib.auth import views
+from . import views
+from django.contrib.auth import views as viewsdj
 
 urlpatterns = [
     # Examples:
@@ -9,8 +9,11 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^post/', include('blog.urls')),
-    url(r'^polls/', include('polls.urls', namespace="polls")),
-    url(r'^login/$', views.login, name='login'),
-    url(r'^logout/$', views.logout, name='logout', kwargs={'next_page': '/post'}),
+    url(r'^post/', include('blog.urls', namespace="posts"), name='posts'),
+    url(r'^polls/', include('polls.urls', namespace="polls"), name='polls'),
+    url(r'^login/$', viewsdj.login, name='login'),
+    url(r'^logout/$', viewsdj.logout, name='logout', kwargs={'next_page': '/'}),
+    url(r'^$', views.home, name='home'),
+    url(r'^course/', include('courses.urls', namespace="courses"), name='course'),
+    url(r'^students/', include('students.urls', namespace="students"), name='student'),
 ]
