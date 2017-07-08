@@ -26,11 +26,29 @@
                             <h6><a href={% url 'courses:course_detail' pk=course.pk %}> {{ course.name }}</a></h6>
                         {% endfor %}
                     </td>
+
+                    <td>
+                        {% if user.is_superuser %}
+                            <a class="btn btn-default"
+                               href="{% url 'students:student_edit' pk=student.pk %}?next=
+                                       {{ request.path|urlencode }}{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}{% endif %}"><span
+                                    class="glyphicon glyphicon-pencil"></span></a>
+                            <a class="btn btn-default" href="{% url 'students:student_remove' pk=student.pk %}?next=
+                                    {{ request.path|urlencode }}{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}{% endif %}"><span
+                                    class="glyphicon glyphicon-remove"></span></a>
+                        {% endif %}
+                    </td>
+
                 </tr>
             </div>
         {% endfor %}
 
     </table>
-    <a href="{% url 'students:student_new' %}?next={{ request.path|urlencode }}"><button type="submit">Add
-        student</button></a>
+    {% if user.is_superuser %}
+        <a href="{% url 'students:student_new' %}?course_id={{ request.GET.course_id }}&next={{ request.path|urlencode }}">
+            <button type="submit">Add
+                student
+            </button>
+        </a>
+    {% endif %}
 {% endblock %}

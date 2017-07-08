@@ -26,10 +26,12 @@
                 <li class><a href={% url 'posts:post_list' %}>Blog</a></li>
                 <li class><a href={% url 'polls:index' %}>Polls</a></li>
                 <li class><a href={% url 'courses:courses_list' %}>Courses</a></li>
-                {% if "/course/" in request.get_full_path and request.get_full_path|length > 8%}
-                      <li class><a href={% url 'students:students_list' pk=request.get_full_path|cut:"/"|cut:"course" %}>Students</a></li>
+                {% if "/course/" in request.get_full_path and request.get_full_path|length > 8 %}
+                    <li class><a
+                            href={% url 'students:students_list' %}?course_id={{ request.get_full_path|cut:"/"|cut:"course" }}>Students</a>
+                    </li>
                 {% else %}
-                    <li class><a href={% url 'students:students_full_list' %}>Students</a></li>
+                    <li class><a href={% url 'students:students_list' %}>Students</a></li>
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">

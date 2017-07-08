@@ -11,6 +11,7 @@
             <th>№</th>
             <th>Название</th>
             <th>Описание</th>
+            <th></th>
         </tr>
         {% for lesson in lessons %}
             <div class="course">
@@ -18,8 +19,21 @@
                     <td><h6>{{ forloop.counter }}</h6></td>
                     <td><h5>{{ lesson.subject }}</h5></td>
                     <td><h6>{{ lesson.description }}</h6></td>
+                    <td>
+                        {% if user.is_superuser %}
+                            <a class="btn btn-default" href="{% url 'courses:lesson_edit' pk=lesson.pk %}">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                            <a class="btn btn-default" href="{% url 'courses:lesson_remove' pk=lesson.pk %}">
+                                <span class="glyphicon glyphicon-remove"></span></a>
+                        {% endif %}
+                    </td>
                 </tr>
             </div>
         {% endfor %}
     </table>
+    <a href="{% url 'courses:add_lesson_to_course' pk=course.pk %}">
+        <button type="submit">Add lesson
+        </button>
+    </a>
 {% endblock %}
