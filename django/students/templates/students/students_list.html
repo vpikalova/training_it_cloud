@@ -8,6 +8,7 @@
             <th>Адрес</th>
             <th>Skype</th>
             <th>Курсы</th>
+            <th></th>
         </tr>
         {% for student in students %}
             <div class="course">
@@ -28,5 +29,8 @@
                 </tr>
             </div>
         {% endfor %}
+
     </table>
+    <a href="{% url 'students:student_new' %}?next={{ request.path|urlencode }}"><button type="submit">Add
+        student</button></a>
 {% endblock %}

@@ -1,6 +1,10 @@
 from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, HttpResponseRedirect
 from courses.models import Course
 from .models import Student
+from .forms import StudentForm
+
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -19,3 +23,16 @@ def students_full_list(request):
 def student_details(request, pk):
     student = get_object_or_404(Student, pk=pk)
     return render(request, 'students/student_detail.html', {'student': student})
+
+
+@login_required
+def student_new(request):
+    if (request.method == "POST"):
+        form = StudentForm(request.POST)
+        if (form.is_valid()):
+            student = form.save()
+            next = request.POST.get('next', '/')
+            return HttpResponseRedirect(next)
+    else:
+        form = StudentForm()
+    return render(request, 'students/student_edit.html', {'form': form})
