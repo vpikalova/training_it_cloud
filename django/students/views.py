@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 
 def students_list(request):
     pk = request.GET.get('course_id', '-1')
-    if '-' in pk:
+    if '-' in pk or pk == '':
         students = Student.objects.all().order_by('name')
     else:
         course = get_object_or_404(Course, pk=pk)

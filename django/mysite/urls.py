@@ -16,4 +16,5 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^course/', include('courses.urls', namespace="courses"), name='course'),
     url(r'^students/', include('students.urls', namespace="students"), name='student'),
+    url(r'^quadratic/$', include('quadratic.urls', namespace="quadratic"), name='quadratic'),
 ]
