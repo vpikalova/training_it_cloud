@@ -1,0 +1,54 @@
+{% extends 'header.html' %}
+{% block content %}
+    {% load staticfiles %}
+    <table class="table table-hover" width="150%">
+        <tr>
+            <th>№</th>
+            <th>Фамилия Имя</th>
+            <th>Адрес</th>
+            <th>Skype</th>
+            <th>Курсы</th>
+            <th></th>
+        </tr>
+        {% for student in students %}
+            <div class="course">
+                <tr>
+                    <td><h6>{{ forloop.counter }}</h6></td>
+                    <td><h6><a
+                            href={% url 'students:student_detail' pk=student.pk %}>{{ student.surname }} {{ student.name }}
+                    </a>
+                    </h6></td>
+                    <td><h6>{{ student.address }}</h6></td>
+                    <td><h6>{{ student.skype }}</h6></td>
+                    <td>
+                        {#                        {{ student.courses }}#}
+                        {% for course in student.courses.all %}
+                            <h6><a href={% url 'courses:course_detail' pk=course.pk %}> {{ course.name }}</a></h6>
+                        {% endfor %}
+                    </td>
+
+                    <td>
+                        {% if user.is_superuser %}
+                            <a class="btn btn-default"
+                               href="{% url 'students:student_edit' pk=student.pk %}?next=
+                                       {{ request.path|urlencode }}{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}{% endif %}"><span
+                                    class="glyphicon glyphicon-pencil"></span></a>
+                            <a class="btn btn-default" href="{% url 'students:student_remove' pk=student.pk %}?next=
+                                    {{ request.path|urlencode }}{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}{% endif %}"><span
+                                    class="glyphicon glyphicon-remove"></span></a>
+                        {% endif %}
+                    </td>
+
+                </tr>
+            </div>
+        {% endfor %}
+
+    </table>
+    {% if user.is_superuser %}
+        <a href="{% url 'students:student_new' %}?course_id={{ request.GET.course_id }}&next={{ request.path|urlencode }}">
+            <button type="submit">Add
+                student
+            </button>
+        </a>
+    {% endif %}
+{% endblock %}

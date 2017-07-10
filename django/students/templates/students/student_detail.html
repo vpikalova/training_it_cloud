@@ -1,0 +1,36 @@
+{% extends 'header.html' %}
+{% block content %}
+    <h3>{{ student.surname }} {{ student.name }}</h3>
+    <table class="table table-hover" width="150%">
+        <tbody>
+        <tr>
+            <td>День рождения</td>
+            <td>{{ student.date_of_birth }}</td>
+        </tr>
+        <tr>
+            <td>email</td>
+            <td>{{ student.email }}</td>
+        </tr>
+        <tr>
+            <td>Телефонный номер</td>
+            <td>{{ student.phone }}</td>
+        </tr>
+        <tr>
+            <td>Адрес</td>
+            <td>{{ student.address }}</td>
+        </tr>
+        <tr>
+            <td>skype</td>
+            <td>{{ student.skype }}</td>
+        </tr>
+        <tr>
+            <td>Курсы</td>
+            <td>
+                {% for course in student.courses.all %}
+                    <h6><a href={% url 'courses:course_detail' pk=course.pk %}> {{ course.name }}</a></h6>
+                {% endfor %}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}
